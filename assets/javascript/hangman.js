@@ -1,9 +1,10 @@
 $(document).ready(function(){
-var wordChoice = ["Fresh Prince", "Family Matters", "Living Single", "Smart Guy", 
-                 "Sister Sister", "Cousin Skeeter", "The Hughleys", "Martin",
-                 "A Different World", "Doug", "Moesha", "The Wayans Brothers",
-                 "The Parkers", "The Jaime Fox Show", "Kenan And Kel", "Amen",
-                 "In Living Color", "My Brother And Me", "The PJs"];
+var wordChoice = ["Kenan and Kel", "Family Matters", "Living Single", "Smart Guy", 
+                 "The Wayans Bros", "Cousin Skeeter", "The Hughleys", "Martin",
+                 "A Different World", "Doug", "Moesha", "The Cosby Show",
+                 "The Parkers", "A Different World", "Amen", "Fresh Prince of Bel Air",
+                 "The Pjs", "Sister Sister", "The Jaime Fox Show", "One on One",
+                 "Girlfriends"];
 
 const maxGuess = 10;
 var pauseGame = false;
@@ -12,6 +13,7 @@ var guessingWord = [];
 var wordToMatch;
 var numGuess = 9;
 var wins = 0;
+var losses = 0;
 
 resetGame()
 document.onkeypress = function(event) {
@@ -20,8 +22,16 @@ document.onkeypress = function(event) {
     } 
 }
 
+
+    
+
+
 function checkForLetter(letter){
     var foundLetter = false;
+    var correctSound = document.createElement("audio")
+    var incorrectSound = document.createElement("audio")
+    correctSound.setAttribute("src", "assets/audio/all_that.wav")
+    incorrectSound.setAttribute("src", "assets/audio/boo.wav")
     for (var i=0, j=wordToMatch.length; i<j; i++) {
         if (letter === wordToMatch[i]){
             guessingWord[i] = letter;
@@ -30,6 +40,7 @@ function checkForLetter(letter){
                 wins++;
                 pauseGame = true;
                 updateDisplay();
+                correctSound.play();
                 setTimeout(resetGame, 5000);
             }
         }
@@ -40,9 +51,12 @@ function checkForLetter(letter){
             numGuess--;
             updateDisplay();
         }
-       if (numGuess === 0) {
-           guessingWord = wordToMatch.split();
+       else { (numGuess === 0) 
+           guessingWord = wordToMatch.split("");
            pauseGame = true;
+           losses++;
+           updateDisplay();
+           incorrectSound.play();
            setTimeout(resetGame, 5000);
        } 
     }
@@ -72,8 +86,9 @@ function resetGame() {
 function updateDisplay () {
     // numGuess = 9;
     document.getElementById("totalWins").innerText = wins;
-    document.getElementById("currentWord").innerText = guessingWord.join(" ");
+    document.getElementById("currentWord").innerText = guessingWord.join("");
     document.getElementById("remainingGuesses").innerText = numGuess;
     document.getElementById("guessedLetters").innerText= guessedLetters.join(" ");
+    document.getElementById("totalLosses").innerText = losses;
 }
 })

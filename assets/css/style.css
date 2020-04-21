@@ -39,6 +39,8 @@ p {
     margin-left: 350px;
     margin-top: 50px;
     justify-content: center;
+    width: 50%;
+    
 
 }
 #box3 {
@@ -57,4 +59,25 @@ p {
     font-size: 100px;
     margin-left: 200px;
     width: 50px;
+}
+
+#currentWord {
+    letter-spacing: 7px;
+    align-content: center;
+}
+
+@media screen and (min-width:320px){
+    #main {
+        width: 100%;
+     }
+}
+@media screen and (min-width:768px){
+    #main {
+        width: 100%;
+     }
+}
+@media screen and (min-width:1100px){
+    #main {
+        width: 100%;
+     }
 }
